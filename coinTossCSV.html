@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HeadOrTail</title>
+</head>
+
+<body>
+    <script>
+        //storing data and if head will get ir will increase
+        players = {
+            player1: 0,
+            player2: 0,
+        };
+        finalResult = []; //storing all round data
+
+        //this function will declare the match results
+
+        function Winner() {
+            if (players.player1 > players.player2) {
+                console.log("--Player 1 is the winner--");
+            } else if (players.player1 < players.player2) {
+                console.log("--Player 2 is the winner--");
+            } else {
+                console.log("--------MATCH DRAW--------");
+            }
+        }
+
+        //running the setinterval for rounds and 5 sec of time gap
+
+        rounds = 1;
+        b = setInterval((function itration() {
+            if (rounds > 1) {
+                console.table(players);
+                Winner(); //calling the winner function to declare the winner
+            }
+            if (rounds == 5) {
+                clearInterval(b);
+                getCsvFileForFinalResult()
+                console.table(finalResult);
+            } else {
+                console.log(`\nRound :- ${rounds}\n`);
+                console.log(`*****Whoever got the most head will win the game*****\n`);
+                intervalForToss();
+                rounds++;
+                return itration;
+            }
+        })(), 15000);
+
+        //this function is for tossing the coin for each round 10 times
+
+        function intervalForToss() {
+            headOrTail = ["heads", "tails"];
+
+            toss = 1;
+            a = setInterval(() => {
+                firstPlayer = headOrTail[Math.floor(Math.random() * 2)];
+                secondPlayer = headOrTail[Math.floor(Math.random() * 2)];
+
+
+                console.log(`Toss:-${toss}\n Player1 :-${firstPlayer}\n Player2:- ${secondPlayer}\n`);
+
+                if (firstPlayer == "heads") {
+                    players.player1 += 1;
+                }
+                if (secondPlayer == "heads") {
+                    players.player2 += 1;
+                }
+                if (toss == 10) {
+                    console.log("Please wait for 5 second we are declaring the winner")
+                    clearInterval(a);
+                }
+                toss++;
+
+                finalResult.push({
+                    Round: rounds - 1,
+                    Player1: firstPlayer,
+                    Player2: secondPlayer,
+                });
+
+            }, 1000);
+        }
+        //this function will create a csv file for the every round toss and automatically download
+        function getCsvFileForFinalResult() {           
+
+            cs = ""
+            cs +="Round,Player1,Player2"
+            cs += "\r\n"
+
+
+            for (i of finalResult) {
+                
+                cs += i.Round + ","
+                cs += i.Player1 + ","
+                cs += i.Player2 + ","
+                cs += "\r\n"
+
+            }
+
+            let tempBloB = new Blob([cs], { type: "text\csv" })
+
+            //download url which is temproory
+
+            let tempUrl = window.URL.createObjectURL(tempBloB)
+            let activation = document.createElement("a")
+            activation.href = tempUrl
+
+            activation.download = "coinTossMatchResult.csv"
+            activation.click()
+            window.URL.revokeObjectURL(tempUrl)
+            activation.remove()
+        }
+    </script>
+</body>
+
+</html>
