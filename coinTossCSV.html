@@ -21,11 +21,11 @@
 
         function Winner() {
             if (players.player1 > players.player2) {
-                console.log("--Player 1 is the winner--");
+                console.log(`--Player 1 leads by ${players.player1-players.player2} points--`);
             } else if (players.player1 < players.player2) {
-                console.log("--Player 2 is the winner--");
+                console.log(`--Player 2 leads by ${players.player2-players.player1} points--`);
             } else {
-                console.log("--------MATCH DRAW--------");
+                console.log(`--Both got same points--`);
             }
         }
 
