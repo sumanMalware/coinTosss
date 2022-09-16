@@ -99,6 +99,9 @@
                 cs += "\r\n"
 
             }
+            cs +="Total Heads"+","
+            cs += players.player1 + ","
+            cs += players.player2 + ","
 
             let tempBloB = new Blob([cs], { type: "text\csv" })
 
