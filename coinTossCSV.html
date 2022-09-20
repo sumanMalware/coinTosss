@@ -11,6 +11,10 @@
 <body>
     <script>
         //storing data and if head will get ir will increase
+
+        matchToss = 5                                //set how many toss you want 
+        matchRound = 2                               //set how many rounds you want
+
         players = {
             player1: 0,
             player2: 0,
@@ -31,24 +35,24 @@
 
         //running the setinterval for rounds and 5 sec of time gap
 
-        rounds = 1;
+        rounds = 0;
         b = setInterval((function itration() {
+            rounds++;
             if (rounds > 1) {
                 console.table(players);
                 Winner(); //calling the winner function to declare the winner
             }
-            if (rounds == 5) {
+            if (rounds == matchRound + 1) {
                 clearInterval(b);
-                getCsvFileForFinalResult()
                 console.table(finalResult);
+                getCsvFileForFinalResult()
             } else {
                 console.log(`\nRound :- ${rounds}\n`);
                 console.log(`*****Whoever got the most head will win the game*****\n`);
                 intervalForToss();
-                rounds++;
                 return itration;
             }
-        })(), 15000);
+        })(), matchToss * 1000 + 5000);
 
         //this function is for tossing the coin for each round 10 times
 
@@ -57,8 +61,8 @@
 
             toss = 1;
             a = setInterval(() => {
-                firstPlayer = headOrTail[Math.floor(Math.random() * 2)];
-                secondPlayer = headOrTail[Math.floor(Math.random() * 2)];
+                firstPlayer = headOrTail[Math.floor(Math.random() * headOrTail.length)];
+                secondPlayer = headOrTail[Math.floor(Math.random() * headOrTail.length)];
 
 
                 console.log(`Toss:-${toss}\n Player1 :-${firstPlayer}\n Player2:- ${secondPlayer}\n`);
@@ -69,14 +73,14 @@
                 if (secondPlayer == "heads") {
                     players.player2 += 1;
                 }
-                if (toss == 10) {
+                if (toss == matchToss) {
                     console.log("Please wait for 5 second we are declaring the winner")
                     clearInterval(a);
                 }
                 toss++;
 
                 finalResult.push({
-                    Round: rounds - 1,
+                    Round: rounds,
                     Player1: firstPlayer,
                     Player2: secondPlayer,
                 });
@@ -84,25 +88,25 @@
             }, 1000);
         }
         //this function will create a csv file for the every round toss and automatically download
-        function getCsvFileForFinalResult() {           
+        function getCsvFileForFinalResult() {
 
             cs = ""
-            cs +="Round,Player1,Player2"
+            cs += "Round,Player1,Player2"
             cs += "\r\n"
 
 
             for (i of finalResult) {
-                
+
                 cs += i.Round + ","
                 cs += i.Player1 + ","
                 cs += i.Player2 + ","
                 cs += "\r\n"
 
             }
-            cs +="Total Heads"+","
+            cs += "Total Heads" + ","
             cs += players.player1 + ","
             cs += players.player2 + ","
-
+            
             let tempBloB = new Blob([cs], { type: "text\csv" })
 
             //download url which is temproory
