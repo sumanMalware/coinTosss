@@ -12,8 +12,8 @@
     <script>
         //storing data and if head will get ir will increase
 
-        matchToss = 5                                //set how many toss you want 
-        matchRound = 2                               //set how many rounds you want
+        matchToss = 10                                //set how many toss you want 
+        matchRound = 4                               //set how many rounds you want
 
         players = {
             player1: 0,
@@ -25,9 +25,9 @@
 
         function Winner() {
             if (players.player1 > players.player2) {
-                console.log(`--Player 1 leads by ${players.player1-players.player2} points--`);
+                console.log(`--Player 1 leads by ${players.player1 - players.player2} points--`);
             } else if (players.player1 < players.player2) {
-                console.log(`--Player 2 leads by ${players.player2-players.player1} points--`);
+                console.log(`--Player 2 leads by ${players.player2 - players.player1} points--`);
             } else {
                 console.log(`--Both got same points--`);
             }
@@ -106,7 +106,7 @@
             cs += "Total Heads" + ","
             cs += players.player1 + ","
             cs += players.player2 + ","
-            
+
             let tempBloB = new Blob([cs], { type: "text\csv" })
 
             //download url which is temproory
