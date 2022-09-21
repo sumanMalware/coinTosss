@@ -10,11 +10,13 @@
 
 <body>
     <script>
-        //storing data and if head will get ir will increase
+        
 
         matchToss = 10                                //set how many toss you want 
         matchRound = 4                               //set how many rounds you want
-
+        
+        //storing data and if head will get it will increase
+        
         players = {
             player1: 0,
             player2: 0,
@@ -23,7 +25,7 @@
 
         //this function will declare the match results
 
-        function Winner() {
+        function winner() {
             if (players.player1 > players.player2) {
                 console.log(`--Player 1 leads by ${players.player1 - players.player2} points--`);
             } else if (players.player1 < players.player2) {
@@ -36,14 +38,14 @@
         //running the setinterval for rounds and 5 sec of time gap
 
         rounds = 0;
-        b = setInterval((function itration() {
+        stopRound = setInterval((function itration() {
             rounds++;
             if (rounds > 1) {
                 console.table(players);
-                Winner(); //calling the winner function to declare the winner
+                winner(); //calling the winner function to declare the winner
             }
             if (rounds == matchRound + 1) {
-                clearInterval(b);
+                clearInterval(stopRound);
                 console.table(finalResult);
                 getCsvFileForFinalResult()
             } else {
@@ -60,7 +62,7 @@
             headOrTail = ["heads", "tails"];
 
             toss = 1;
-            a = setInterval(() => {
+            stopToss = setInterval(() => {
                 firstPlayer = headOrTail[Math.floor(Math.random() * headOrTail.length)];
                 secondPlayer = headOrTail[Math.floor(Math.random() * headOrTail.length)];
 
@@ -75,7 +77,7 @@
                 }
                 if (toss == matchToss) {
                     console.log("Please wait for 5 second we are declaring the winner")
-                    clearInterval(a);
+                    clearInterval(stopToss);
                 }
                 toss++;
 
