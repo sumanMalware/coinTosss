@@ -44,7 +44,7 @@
                 console.table(players);
                 winner(); //calling the winner function to declare the winner
             }
-            if (rounds == matchRound + 1) {
+            if (rounds === matchRound + 1) {
                 clearInterval(stopRound);
                 console.table(finalResult);
                 getCsvFileForFinalResult()
@@ -69,13 +69,13 @@
 
                 console.log(`Toss:-${toss}\n Player1 :-${firstPlayer}\n Player2:- ${secondPlayer}\n`);
 
-                if (firstPlayer == "heads") {
+                if (firstPlayer === "heads") {
                     players.player1 += 1;
                 }
-                if (secondPlayer == "heads") {
+                if (secondPlayer === "heads") {
                     players.player2 += 1;
                 }
-                if (toss == matchToss) {
+                if (toss === matchToss) {
                     console.log("Please wait for 5 second we are declaring the winner")
                     clearInterval(stopToss);
                 }
