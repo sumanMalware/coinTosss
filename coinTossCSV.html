@@ -56,7 +56,7 @@
             }
         })(), matchToss * 1000 + 5000);
 
-        //this function is for tossing the coin for each round 10 times
+        //this function is for tossing the coin for each round n times
 
         function intervalForToss() {
             headOrTail = ["heads", "tails"];
@@ -92,24 +92,24 @@
         //this function will create a csv file for the every round toss and automatically download
         function getCsvFileForFinalResult() {
 
-            cs = ""
-            cs += "Round,Player1,Player2"
-            cs += "\r\n"
+            element = ""
+            element += "Round,Player1,Player2"
+            element += "\r\n"
 
 
             for (i of finalResult) {
 
-                cs += i.Round + ","
-                cs += i.Player1 + ","
-                cs += i.Player2 + ","
-                cs += "\r\n"
+                element += i.Round + ","
+                element += i.Player1 + ","
+                element += i.Player2 + ","
+                element += "\r\n"
 
             }
-            cs += "Total Heads" + ","
-            cs += players.player1 + ","
-            cs += players.player2 + ","
+            element += "Total Heads" + ","
+            element += players.player1 + ","
+            element += players.player2 + ","
 
-            let tempBloB = new Blob([cs], { type: "text\csv" })
+            let tempBloB = new Blob([element], { type: "text\csv" })
 
             //download url which is temproory
 
